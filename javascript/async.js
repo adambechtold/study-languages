@@ -65,4 +65,47 @@ async function demonstrateErrorHandlingWithThen() {
     .catch(() => false);
   console.log("result 2:", await result); // false
 }
-demonstrateErrorHandlingWithThen();
+
+function promise_all(promises) {
+  const results = Array(promises.length);
+  let completedCount = 0;
+
+  const savePromiseResult = (result, index) => {};
+
+  return new Promise((resolve, reject) => {
+    promises.map((p, i) => {
+      p.then((result) => {
+        results[i] = result;
+        completedCount++;
+        if (completedCount === promises.length) {
+          resolve(results);
+        }
+      }).catch((e) => {
+        reject(e);
+      });
+    });
+  });
+}
+
+function setTimeoutPromise(callback, delayMs) {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(callback()), delayMs);
+  });
+}
+function demonstratePromiseAll() {
+  promise_all([setTimeoutPromise(() => 3, 500), Promise.resolve(4)]).then((r) =>
+    console.log(r),
+  );
+  promise_all([Promise.resolve(1), Promise.resolve(2)]).then((r) =>
+    console.log(r),
+  );
+}
+function demonstratePromiseAllReject() {
+  promise_all([Promise.resolve(1), Promise.reject(2)])
+    .then((r) => {
+      console.log("promises resolved with", r);
+    })
+    .catch((e) => {
+      console.log("promise rejected with", e);
+    });
+}
