@@ -1,0 +1,19 @@
+{
+  "name": "study-javascript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "async.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^29.7.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "ts-jest": "^29.2.5"
+  }
+}
